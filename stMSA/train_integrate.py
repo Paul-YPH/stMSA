@@ -40,7 +40,7 @@ def train_integration(
         ])
 
     # get DEC init centroids
-    pca_model = PCA(n_components=30, random_state=seed)
+    pca_model = PCA(n_components=min(30,adata.shape[0]-1,adata.shape[1]-1), random_state=seed)
     decomposed_x = pca_model.fit_transform(adata.X.todense().A)
     centroids = gen_clust_embed(decomposed_x, adata.obs['batch'], preclust_method, preclust_para, seed, device) 
 
